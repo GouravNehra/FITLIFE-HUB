@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+@import "tailwindcss";
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* FitLife Hub premium theme */
+:root {
+  --fitlife-bg: #fafaf9;
+  --fitlife-surface: #ffffff;
+  --fitlife-text: #1c1917;
+  --fitlife-muted: #78716c;
+  --fitlife-border: #e7e5e4;
+}
+html, body { background: var(--fitlife-bg); color: var(--fitlife-text); transition: background .25s ease, color .25s ease; }
+.nav-link { color: #78716c; transition: color .2s ease, transform .2s ease; }
+.nav-link:hover { color: #1c1917; transform: translateY(-1px); }
+.theme-toggle { color: #57534e; background: rgba(255,255,255,.75); }
+.theme-toggle:hover { background: #f5f5f4; }
+
+body.dark-mode {
+  --fitlife-bg: #0b0d0f;
+  --fitlife-surface: #12161a;
+  --fitlife-text: #f5f5f4;
+  --fitlife-muted: #a8a29e;
+  --fitlife-border: #292e33;
+}
+body.dark-mode .bg-white { background-color: #12161a !important; }
+body.dark-mode .bg-stone-50 { background-color: #0b0d0f !important; }
+body.dark-mode .bg-stone-100 { background-color: #191e23 !important; }
+body.dark-mode .bg-stone-200 { background-color: #292e33 !important; }
+body.dark-mode .bg-stone-800 { background-color: #171b20 !important; }
+body.dark-mode .bg-stone-900 { background-color: #050607 !important; }
+body.dark-mode .text-stone-900 { color: #f5f5f4 !important; }
+body.dark-mode .text-stone-800,
+body.dark-mode .text-stone-700 { color: #e7e5e4 !important; }
+body.dark-mode .text-stone-600,
+body.dark-mode .text-stone-500 { color: #a8a29e !important; }
+body.dark-mode .text-stone-400 { color: #78716c !important; }
+body.dark-mode .text-stone-300 { color: #57534e !important; }
+body.dark-mode .border-stone-100,
+body.dark-mode .border-stone-200,
+body.dark-mode .border-stone-300 { border-color: #292e33 !important; }
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select { background: #12161a !important; color: #f5f5f4 !important; border-color: #343a40 !important; }
+body.dark-mode .nav-link { color: #a8a29e; }
+body.dark-mode .nav-link:hover { color: #fff; }
+body.dark-mode .theme-toggle { color: #f5f5f4; background: #171b20; border-color: #343a40; }
+body.dark-mode .theme-toggle:hover { background: #22282e; }
+body.dark-mode .shadow-lg,
+body.dark-mode .shadow-xl,
+body.dark-mode .shadow-2xl { box-shadow: 0 18px 50px rgba(0,0,0,.35) !important; }
+body.dark-mode .fc {
+  --fc-border-color: #292e33;
+  --fc-page-bg-color: #12161a;
+  --fc-neutral-bg-color: #171b20;
+  --fc-list-event-hover-bg-color: #1d2329;
+  --fc-today-bg-color: #1b2228;
+  --fc-button-text-color: #e7e5e4;
+  --fc-button-bg-color: #171b20;
+  --fc-button-border-color: #343a40;
+  --fc-button-hover-bg-color: #242b32;
+  --fc-button-hover-border-color: #4b5563;
+}
+body.dark-mode .fc .fc-toolbar-title,
+body.dark-mode .fc .fc-daygrid-day-number,
+body.dark-mode .fc .fc-col-header-cell-cushion { color: #f5f5f4 !important; }
+body.dark-mode .fc .fc-daygrid-day:hover { background: #171b20; }
+body.dark-mode .fc .fc-day-today { background: #1b2228 !important; }
