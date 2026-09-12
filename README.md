@@ -510,6 +510,14 @@ npm run dev
 
 > The server runs at **http://localhost:5000** by default.
 
+Before starting the backend after a restart, start the local services from the
+repository root. This command opens Docker Desktop automatically on macOS and
+starts the existing MongoDB and Redis containers:
+
+```bash
+npm run dev:services
+```
+
 ---
 
 ### 3. Set Up the Client

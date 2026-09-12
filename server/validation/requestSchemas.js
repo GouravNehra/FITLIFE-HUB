@@ -48,6 +48,7 @@ const productFieldsSchema = z.object({
   reviews: nonNegativeIntegerSchema.optional(),
   badge: nullableStringSchema,
   image: z.string().optional(),
+  productUrl: z.string().url().optional(),
   stock: nullableNonNegativeIntegerSchema,
   reserved: nonNegativeIntegerSchema.optional(),
 }).strict();

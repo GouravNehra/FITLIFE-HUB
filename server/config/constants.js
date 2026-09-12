@@ -5,7 +5,7 @@ const CONSTANTS = {
   LOW_STOCK_THRESHOLD: 5,
 
   // Server Config
-  DEFAULT_PORT: 5000,
+  DEFAULT_PORT: 5001,
 
   // Rate Limiting
   RATE_LIMIT_WINDOW_MS: 15 * 60 * 1000, // 15 minutes

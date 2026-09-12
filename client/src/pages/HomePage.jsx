@@ -14,7 +14,6 @@ import WelcomeBanner from "../components/WelcomeBanner";
 import { useWelcomeDiscount } from "../auth/useWelcomeDiscount";
 import BMICalculator from "../components/BMICalculator";
 import CalorieCalculator from "../components/CalorieCalculator";
-import NearbyFitnessCenters from "../components/NearbyFitnessCenters";
 import Stars from "../components/Stars";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import useInfiniteProducts from "../hooks/useInfiniteProducts";
@@ -22,13 +21,15 @@ import CategoryPillsSkeleton from "../components/CategoryPillsSkeleton";
 
 
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 const CATEGORIES = [
   { name: "All", value: "all" },
   { name: "Equipment", value: "Equipment" },
   { name: "Nutrition", value: "Nutrition" },
   { name: "Wearables", value: "Wearables" },
+  { name: "Whey Protein", value: "Whey Protein" },
+  { name: "Creatine", value: "Creatine" },
 ];
 
 const PLANS = [
@@ -81,7 +82,10 @@ const ProductCard = memo(function ProductCard({ product, onAdd, cartItems = [], 
             src={product.image} alt={product.name}
             loading="lazy" decoding="async"
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-            onError={e => { e.currentTarget.onerror = null; e.currentTarget.style.display = "none"; }}
+            onError={e => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = "/assets/placeholder-product.png";
+            }}
           />
         ) : (
           <div className="text-4xl sm:text-5xl opacity-20 select-none group-hover:scale-110 transition-transform duration-500">
@@ -221,7 +225,7 @@ export default function HomePage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteProducts({ limit: 24 });
+  } = useInfiniteProducts({ limit: 100 });
 
   useEffect(() => {
     setLoading(rqLoading);
@@ -336,6 +340,10 @@ export default function HomePage() {
     return matchCat && matchSearch;
   });
 
+  const muscleBlazeProducts = products.filter(product =>
+    product.brand?.toLowerCase() === "muscleblaze"
+  );
+
   const renderProductGrid = () => {
     if (loading) return (
       <>
@@ -363,7 +371,7 @@ export default function HomePage() {
       <div className="text-center py-12 text-stone-400">
         <p className="text-3xl mb-2">🔌</p>
         <p className="text-sm mb-1">Cannot connect to the server</p>
-        <p className="text-xs">Make sure the backend is running on port 5000</p>
+        <p className="text-xs">Make sure the backend is running on port 5001</p>
         <button onClick={() => window.location.reload()}
           className="mt-4 text-xs bg-stone-900 text-white px-4 py-2 rounded-full
                      hover:bg-stone-700 transition-colors">
@@ -524,6 +532,22 @@ export default function HomePage() {
           )}
           {renderProductGrid()}
 
+          {activeCategory === "all" && !debouncedQuery && muscleBlazeProducts.length > 0 && (
+            <div className="mt-10 sm:mt-14">
+              <div className="mb-4 sm:mb-6">
+                <p className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-2">Nutrition range</p>
+                <h2 className="font-['DM_Serif_Display'] text-xl sm:text-2xl md:text-3xl text-stone-900">
+                  MuscleBlaze products
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
+                {muscleBlazeProducts.map(product => (
+                  <ProductCard key={`muscleblaze-${product.id}`} product={product} onAdd={addToCart} cartItems={cart} updateQty={updateQty} />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* "See More" button */}
           {!backendError && !loading && activeCategory === "all" && (
             <div className="mt-8 sm:mt-10 flex justify-center">
@@ -541,9 +565,6 @@ export default function HomePage() {
             </div>
           )}
         </section>
-
-        {/* Nearby fitness centers */}
-        <NearbyFitnessCenters visible={visible} />
 
         {/* ── Plans section ── */}
         <section id="plans">

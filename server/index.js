@@ -5,6 +5,9 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const mongoose = require("mongoose");
+const Product = require("./models/Product");
+const { PRODUCTS } = require("./seed");
 const { RATE_LIMIT_WINDOW_MS, API_LIMIT_MAX, PAYMENT_LIMIT_MAX, DEFAULT_PORT } = require("./config/constants");
 const app = express();
 const port = process.env.PORT || DEFAULT_PORT;
@@ -122,6 +125,20 @@ app.use("/api/payment/verify-payment", paymentLimiter);
 
 // ── Database ────────────────────────────────────────────────────────────────
 require("./db");
+
+// Keep a fresh local database usable after a project restart without replacing
+// products that already exist or touching any other collections.
+if (isDev && process.env.SEED_PRODUCTS_ON_STARTUP !== "false") {
+  mongoose.connection.asPromise()
+    .then(async () => {
+      const productCount = await Product.countDocuments();
+      if (productCount === 0) {
+        await Product.insertMany(PRODUCTS);
+        console.log(`Seeded ${PRODUCTS.length} products on startup`);
+      }
+    })
+    .catch((err) => console.error("Startup product seed failed:", err.message));
+}
 
 // ── Development: seed a local admin profile if configured ──────────────────
 if (process.env.NODE_ENV !== 'production') {

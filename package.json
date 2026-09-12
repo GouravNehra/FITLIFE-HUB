@@ -1,0 +1,9 @@
+{
+  "name": "fitlife-hub",
+  "private": true,
+  "scripts": {
+    "dev:services": "./scripts/start-local-services.sh",
+    "seed": "npm --prefix server run seed",
+    "seed:fitness": "npm --prefix server run seed:fitness"
+  }
+}

@@ -10,9 +10,10 @@ const Product = require('../models/Product');
  *
  * @param {string} userId - The Firebase UID of the user
  * @param {Array} [items] - Optional array of { productId, quantity }. If omitted, uses the cart.
+ * @param {Object} shippingAddress - Address snapshot for fulfillment and payment records.
  * @returns {Promise<Object>} The created order document
  */
-async function createOrder(userId, items = null) {
+async function createOrder(userId, items = null, shippingAddress = null) {
   let orderItems = items;
 
   // If no items are explicitly provided, fetch them from the user's cart
@@ -47,7 +48,7 @@ async function createOrder(userId, items = null) {
   }
 
   // Create the order document
-  const order = await Order.create({ userId, items: populated, total });
+  const order = await Order.create({ userId, items: populated, total, shippingAddress });
 
   // Deduct stock and reserved amounts for each item
   for (const it of orderItems) {

@@ -6,8 +6,9 @@ import { getAuthHeaders } from "../utils/getAuthHeaders";
 import { fmt } from "../utils/formatters";
 import CartDrawer from "../components/CartDrawer";
 import Stars from "../components/Stars";
+import { loadCachedProducts, saveCachedProducts } from "../utils/productStorage";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
 const FEATURE_MAP = {
   Equipment: ["Free shipping", "Assembly guide included", "2-year warranty", "Returns within 30 days"],
@@ -103,6 +104,7 @@ export default function ProductPage() {
         const res = await fetch(`${API}/api/products?all=true`);
         if (!res.ok) throw new Error("Failed to load products");
         const all = res.ok ? await res.json() : [];
+        saveCachedProducts(all);
         const normalised = all.map(p => ({ ...p, id: p.productId }));
         setProducts(normalised);
         const found = normalised.find(p => String(p.productId) === String(productId));
@@ -119,7 +121,16 @@ export default function ProductPage() {
           setCart(enrichCart(cartDoc, normalised));
         }
       } catch (err) {
-        setError(err.message);
+        const cachedProducts = loadCachedProducts();
+        const normalised = cachedProducts.map(p => ({ ...p, id: p.productId }));
+        const found = normalised.find(p => String(p.productId) === String(productId));
+        if (found) {
+          setProducts(normalised);
+          setProduct(found);
+          setRelated(normalised.filter(p => p.category === found.category && String(p.productId) !== String(productId)).slice(0, 4));
+        } else {
+          setError(err.message);
+        }
       } finally {
         setLoading(false);
         setTimeout(() => setVisible(true), 80);

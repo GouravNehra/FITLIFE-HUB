@@ -35,6 +35,7 @@ async function connect() {
     try {
         await mongoose.connect(MONGO_URI, {
             serverSelectionTimeoutMS: process.env.NODE_ENV === "development" ? 5000 : 30000,
+            ...(process.env.MONGO_DB ? { dbName: process.env.MONGO_DB } : {}),
         });
         console.log("MongoDB connected successfully");
     } catch (err) {

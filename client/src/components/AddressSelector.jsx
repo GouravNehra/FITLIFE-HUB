@@ -1,20 +1,65 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function AddressSelector({ addresses = [], selectedAddressId, onSelect }) {
+const emptyAddress = {
+  label: 'Home', line1: '', line2: '', city: '', state: '', zip: '', country: '', phone: '',
+};
+
+export default function AddressSelector({ addresses = [], selectedAddressId, onSelect, onSaveAddress }) {
   const navigate = useNavigate();
+  const [adding, setAdding] = useState(false);
+  const [form, setForm] = useState(emptyAddress);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const updateField = (event) => {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+  };
+
+  const saveAddress = async (event) => {
+    event.preventDefault();
+    setError('');
+    if (!form.label || !form.line1 || !form.city || !form.zip) {
+      setError('Enter a label, address, city, and PIN code.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await onSaveAddress({ ...form, id: `${Date.now()}` });
+      setForm(emptyAddress);
+      setAdding(false);
+    } catch (err) {
+      setError(err.message || 'Could not save address.');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (!addresses.length) {
     return (
       <div className="bg-stone-800 rounded-lg p-3">
         <p className="text-xs text-stone-400 mb-2">No saved addresses</p>
-        <button
-          onClick={() => navigate('/profile')}
-          className="text-xs text-white underline hover:text-stone-300 transition-colors"
-          aria-label="Go to profile to add a shipping address"
-        >
-          Add a shipping address →
-        </button>
+        {!adding ? (
+          <button
+            onClick={() => setAdding(true)}
+            className="text-xs text-white underline hover:text-stone-300 transition-colors"
+            aria-label="Add a shipping address"
+          >
+            Add a shipping address →
+          </button>
+        ) : (
+          <AddressForm
+            form={form}
+            error={error}
+            saving={saving}
+            onChange={updateField}
+            onSubmit={saveAddress}
+            onCancel={() => setAdding(false)}
+          />
+        )}
       </div>
     );
   }
@@ -64,6 +109,62 @@ export default function AddressSelector({ addresses = [], selectedAddressId, onS
       >
         Manage addresses →
       </button>
+      <button
+        onClick={() => { setAdding(true); setError(''); }}
+        className="block text-xs text-stone-400 hover:text-stone-200 transition-colors underline"
+      >
+        Add another address
+      </button>
+      {adding && (
+        <AddressForm
+          form={form}
+          error={error}
+          saving={saving}
+          onChange={updateField}
+          onSubmit={saveAddress}
+          onCancel={() => setAdding(false)}
+        />
+      )}
     </div>
+  );
+}
+
+function AddressForm({ form, error, saving, onChange, onSubmit, onCancel }) {
+  const fields = [
+    ['label', 'Label', 'Home'],
+    ['line1', 'Address line 1', 'House number and street'],
+    ['line2', 'Address line 2', 'Apartment, landmark (optional)'],
+    ['city', 'City', 'City'],
+    ['state', 'State', 'State'],
+    ['zip', 'PIN code', 'PIN code'],
+    ['country', 'Country', 'Country'],
+    ['phone', 'Phone', 'Phone (optional)'],
+  ];
+
+  return (
+    <form onSubmit={onSubmit} className="mt-3 space-y-2">
+      {fields.map(([name, label, placeholder]) => (
+        <label key={name} className="block">
+          <span className="sr-only">{label}</span>
+          <input
+            name={name}
+            value={form[name]}
+            onChange={onChange}
+            placeholder={placeholder}
+            required={['label', 'line1', 'city', 'zip'].includes(name)}
+            className="w-full rounded-md border border-stone-700 bg-stone-900 px-2.5 py-2 text-xs text-white placeholder:text-stone-500 focus:border-white focus:outline-none"
+          />
+        </label>
+      ))}
+      {error && <p className="text-xs text-red-300" role="alert">{error}</p>}
+      <div className="flex gap-3 pt-1">
+        <button type="submit" disabled={saving} className="rounded-full bg-white px-3 py-2 text-xs text-stone-900 disabled:opacity-50">
+          {saving ? 'Saving...' : 'Save address'}
+        </button>
+        <button type="button" onClick={onCancel} className="text-xs text-stone-400 underline">
+          Cancel
+        </button>
+      </div>
+    </form>
   );
 }

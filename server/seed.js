@@ -132,7 +132,7 @@ const PRODUCTS = [
     rating: 4.6,
     reviews: 142,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/81yO3KZaVwL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwD-kcQRKy0R4Ps7N5nsU4o55z719DjGVXQB2yRqce3A&s',
     stock: 85,
     reserved: 9
   },
@@ -146,7 +146,7 @@ const PRODUCTS = [
     rating: 4.7,
     reviews: 176,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/61qnZr5wNEL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-HGK2FasryHp8nqI9Uo1dD2onnCmOcA_Nt-33Etbg8Q&s=10',
     stock: 45,
     reserved: 6
   },
@@ -160,7 +160,7 @@ const PRODUCTS = [
     rating: 4.8,
     reviews: 198,
     badge: 'New',
-    image: 'https://m.media-amazon.com/images/I/51rxJuWKj8L._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://nwscdn.com/media/catalog/product/cache/h900xw900/f/o/forza-pro-cast-iron-kettlebell-family_10.jpg',
     stock: 35,
     reserved: 5
   },
@@ -174,7 +174,7 @@ const PRODUCTS = [
     rating: 4.5,
     reviews: 89,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71V6aLnMa-L._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://www.lifenowhealth.com/cdn/shop/files/BCAA-ORANGE.jpg?v=1695894694&width=2200',
     stock: 70,
     reserved: 8
   },
@@ -188,7 +188,7 @@ const PRODUCTS = [
     rating: 4.4,
     reviews: 121,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71LBWJp+wQL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW1AlOPEn9KNdBP874WZcvpAKLScEO6u1pbQPPn3qE_g&s=10',
     stock: 60,
     reserved: 7
   },
@@ -202,7 +202,7 @@ const PRODUCTS = [
     rating: 4.6,
     reviews: 143,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71K7Uj+rEaL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc8cx1oQswdbvax1R-ZZK8sPvnZ5yXqPikMP3AG-nQhw&s=10',
     stock: 55,
     reserved: 6
   },
@@ -216,7 +216,7 @@ const PRODUCTS = [
     rating: 4.7,
     reviews: 267,
     badge: 'Verified',
-    image: 'https://m.media-amazon.com/images/I/81HtCNMTIkL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVge656sBTAZ9XrqgLLZ1wfXOlkGjWEgjfhWgvzWOAcw&s=10',
     stock: 200,
     reserved: 20
   },
@@ -230,7 +230,7 @@ const PRODUCTS = [
     rating: 4.5,
     reviews: 98,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71jCRV2qJyL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS3E9iElOz7xapI7SWgGyz9F7cXWHGBxuz_isK3Z1Ldg&s',
     stock: 50,
     reserved: 5
   },
@@ -244,7 +244,7 @@ const PRODUCTS = [
     rating: 4.8,
     reviews: 312,
     badge: 'Best Seller',
-    image: 'https://m.media-amazon.com/images/I/51D9NpFkFfL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtVUqSjH2jzr8JWYmtkGaUowhAFalxK6eK_RJMZdIdzw&s=10',
     stock: 120,
     reserved: 12
   },
@@ -258,7 +258,7 @@ const PRODUCTS = [
     rating: 4.6,
     reviews: 156,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71qX1PCmZsL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzpBblWQcWZk6XN0XB9_YPI53HFkWciYqf8MVi9IiGhg&s',
     stock: 95,
     reserved: 10
   },
@@ -272,7 +272,7 @@ const PRODUCTS = [
     rating: 4.7,
     reviews: 134,
     badge: 'New',
-    image: 'https://m.media-amazon.com/images/I/71BtXLqr-JL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbthcoprfyV88OaGdmb3RaNYHzrwkvMeX3PCTaiEjCxg&s=10',
     stock: 25,
     reserved: 3
   },
@@ -286,7 +286,7 @@ const PRODUCTS = [
     rating: 4.8,
     reviews: 189,
     badge: null,
-    image: 'https://m.media-amazon.com/images/I/71F7Qz2pynL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwjpqhlyDthLP_4l5rdIwd7YBn0Ylnr357F9bj2zgbMQ&s=10',
     stock: 30,
     reserved: 4
   },
@@ -300,16 +300,89 @@ const PRODUCTS = [
     rating: 4.9,
     reviews: 445,
     badge: 'Best Seller',
-    image: 'https://m.media-amazon.com/images/I/81L9aVlIYeL._AC_UF1000,1000_QL80_.jpg',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUiz4GdC5FuAD4O0LXLRBtTUJggQQ9sDk4YqRaQUFNlQ&s',
     stock: 150,
     reserved: 18
+  },
+  {
+    productId: 22,
+    name: 'Biozyme Performance Whey',
+    brand: 'MuscleBlaze',
+    category: 'Whey Protein',
+    weight: '1 kg',
+    flavor: 'Rich Chocolate',
+    price: 3899,
+    originalPrice: 4999,
+    rating: 4.5,
+    image: 'https://img10.hkrtcdn.com/42058/prd_4205719-MuscleBlaze-Biozyme-Performance-Whey-2.2-lb-Kesar-Thandai_o.jpg',
+    stock: 50,
+    reserved: 0
+  },
+  {
+    productId: 23,
+    name: 'Micronised Creatine Monohydrate',
+    brand: 'MuscleBlaze',
+    category: 'Creatine',
+    weight: '250 g',
+    flavor: 'Unflavoured',
+    price: 999,
+    originalPrice: 1499,
+    rating: 4.3,
+    image: 'https://img2.hkrtcdn.com/38900/prd_3889981-MuscleBlaze-Micronised-Creatine-Monohydrate-Unflavoured-250-g_o.jpg',
+    stock: 50,
+    reserved: 0
+  },
+  {
+    productId: 24,
+    name: 'Biozyme Performance Whey',
+    brand: 'MuscleBlaze',
+    category: 'Whey Protein',
+    weight: '2 kg',
+    flavor: 'Rich Chocolate',
+    price: 7599,
+    originalPrice: 7799,
+    rating: 4.5,
+    image: 'https://img8.hkrtcdn.com/39078/prd_3907787-MuscleBlaze-Biozyme-Performance-Whey-4.4-lb-Rich-Chocolate_o.jpg',
+    stock: 50,
+    reserved: 0
+  },
+  {
+    productId: 25,
+    name: 'Biozyme Performance Whey',
+    brand: 'MuscleBlaze',
+    category: 'Whey Protein',
+    weight: '4 kg',
+    flavor: 'Choco Crispers',
+    price: 14399,
+    originalPrice: 18999,
+    rating: 4.5,
+    image: 'https://img10.hkrtcdn.com/35778/prd_3577749-MuscleBlaze-Biozyme-Performance-Whey-4.4-lb-Choco-Crispers_o.jpg',
+    stock: 50,
+    reserved: 0
+  },
+  {
+    productId: 26,
+    name: 'Micronised Creatine Monohydrate CreAMP Powder',
+    brand: 'MuscleBlaze',
+    category: 'Creatine',
+    weight: '100 g',
+    flavor: 'Unflavoured',
+    price: 529,
+    originalPrice: 699,
+    rating: 4.2,
+    reviews: 24635,
+    badge: 'Top Brand',
+    image: 'https://m.media-amazon.com/images/I/711l1FkCLaL._SY450_.jpg',
+    productUrl: 'https://www.amazon.in/dp/B00LLZ82O4',
+    stock: 50,
+    reserved: 0
   },
 ];
 
 async function seed() {
   try {
     console.log('Connecting to MongoDB...');
-    await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, ...(process.env.MONGO_DB ? { dbName: process.env.MONGO_DB } : {}) });
+    await mongoose.connect(MONGO_URI, process.env.MONGO_DB ? { dbName: process.env.MONGO_DB } : undefined);
     console.log('Connected —', 'database:', mongoose.connection.name, 'host:', mongoose.connection.host, ' — seeding products');
 
     await Product.deleteMany({});
@@ -334,4 +407,8 @@ async function seed() {
   }
 }
 
-seed();
+if (require.main === module) {
+  seed();
+}
+
+module.exports = { PRODUCTS };

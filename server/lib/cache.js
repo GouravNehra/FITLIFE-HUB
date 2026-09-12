@@ -50,7 +50,12 @@ class Cache extends EventEmitter {
     }
 
     try {
-      const client = createClient({ url: redisUrl });
+      const client = createClient({
+        url: redisUrl,
+        socket: {
+          reconnectStrategy: false,
+        },
+      });
       client.on('error', (err) => {
         if (process.env.DEBUG_REDIS === 'true') {
           console.warn('[redis] error (full):', err);

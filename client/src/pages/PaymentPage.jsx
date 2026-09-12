@@ -6,7 +6,7 @@ import { auth } from "../auth/firebase";
 import { getAuthHeaders } from "../utils/getAuthHeaders";
 import Navbar from "../components/Navbar";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
 
 function useRazorpayScript() {
@@ -157,7 +157,7 @@ export default function PaymentPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ userId: user.uid }),
+        body: JSON.stringify({ userId: user.uid, address }),
       });
 
       if (!res.ok) throw new Error("Demo order failed");
@@ -205,6 +205,7 @@ export default function PaymentPage() {
           amount: total,
           currency: "INR",
           userId,
+          address,
         }),
       });
 
@@ -245,6 +246,7 @@ export default function PaymentPage() {
                 body: JSON.stringify({
                   ...response,
                   userId,
+                  address,
                 }),
               }
             );

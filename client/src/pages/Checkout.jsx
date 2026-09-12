@@ -10,7 +10,7 @@ import SkeletonItem from "../components/SkeletonItem";
 import SkeletonSummary from "../components/SkeletonSummary";
 import AddressSelector from "../components/AddressSelector";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_URL || "http://localhost:5001";
 const PLACEHOLDER_IMG = "https://placehold.co/96x96/f5f5f4/78716c?text=No+Image";
 
 export default function Checkout() {
@@ -126,6 +126,32 @@ export default function Checkout() {
     });
   };
 
+  const saveCheckoutAddress = async (address) => {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Please sign in again.");
+
+    const addresses = [...(profile?.addresses || []), address];
+    const headers = await getAuthHeaders();
+    const response = await fetch(`${API}/api/user/profile/${user.uid}`, {
+      method: "PUT",
+      headers,
+      credentials: "include",
+      body: JSON.stringify({
+        addresses,
+        defaultAddressId: address.id,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || "Could not save address.");
+    }
+
+    const savedProfile = await response.json();
+    setProfile(savedProfile);
+    setSelectedAddress(address);
+  };
+
   // Full-page cart error
   if (!loadingCart && cartError) return (
     <PageShell menuOpen={menuOpen} setMenuOpen={setMenuOpen}>
@@ -194,6 +220,7 @@ export default function Checkout() {
                       addresses={profile?.addresses || []}
                       selectedAddressId={selectedAddress?.id}
                       onSelect={setSelectedAddress}
+                      onSaveAddress={saveCheckoutAddress}
                     />
                   </div>
                 )}

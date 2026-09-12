@@ -47,6 +47,10 @@ router.post("/create-order", verifyFirebaseToken, async (req, res) => {
     const { amount, currency = "INR", userId } = req.body;
     if (!amount || !userId)
       return res.status(400).json({ error: "amount and userId are required" });
+    if (req.user.uid !== userId)
+      return res.status(403).json({ error: "You can only pay for your own order" });
+    if (!razorpay)
+      return res.status(503).json({ error: "Payment provider is not configured on the server" });
 
     // receipt must be ≤ 40 chars
     const shortId = userId.slice(-8);
@@ -75,10 +79,15 @@ router.post("/create-order", verifyFirebaseToken, async (req, res) => {
  */
 router.post("/verify-payment", verifyFirebaseToken, async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId, address } = req.body;
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature)
       return res.status(400).json({ error: "Missing required payment fields" });
+    if (!address) return res.status(400).json({ error: "Shipping address is required" });
+    if (req.user.uid !== userId)
+      return res.status(403).json({ error: "You can only pay for your own order" });
+    if (!process.env.RAZORPAY_KEY_SECRET)
+      return res.status(503).json({ error: "Payment provider is not configured on the server" });
 
     const expected = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -99,7 +108,7 @@ router.post("/verify-payment", verifyFirebaseToken, async (req, res) => {
     // STEP 2: Create order using service logic
     let order;
     try {
-      order = await createOrder(userId);
+      order = await createOrder(userId, null, address);
     } catch (createErr) {
       return res.status(400).json({ error: createErr.message });
     }
@@ -180,8 +189,9 @@ router.post("/verify-payment", verifyFirebaseToken, async (req, res) => {
  */
 router.post("/clear-cart", verifyFirebaseToken, async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId, address } = req.body;
     if (!userId) return res.status(400).json({ error: "userId is required" });
+    if (!address) return res.status(400).json({ error: "Shipping address is required" });
 
     await releaseAndClearCart(userId);
     res.json({ success: true });
@@ -222,7 +232,7 @@ router.post("/demo-success", async (req, res) => {
     const Order = require("../models/Order");
     let order;
     try {
-      order = await createOrder(userId);
+      order = await createOrder(userId, null, address);
     } catch (createErr) {
       if (createErr.message === "Cart is empty") {
          // Still clear any empty cart just in case

@@ -6,6 +6,7 @@ import { auth } from "../auth/firebase";
 import { useAuth } from "../auth/useAuth";
 import { fmt } from "../utils/formatters";
 import { useGithubStats } from "../utils/useGithubStats";
+import { loadCachedProducts, saveCachedProducts } from "../utils/productStorage";
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const formatStat = (n, loading) => (loading ? "—" : Number(n).toLocaleString("en-IN"));
@@ -135,11 +136,13 @@ export default function LandingPage() {
         const res = await fetch(`${API}/api/products?all=true`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
+        saveCachedProducts(data);
         setProducts(data.map(p => ({ ...p, id: p.productId || p.id })));
       } catch (err) {
         console.error("Error loading products:", err);
-        setBackendError(true);
-        setProducts([]);
+        const cachedProducts = loadCachedProducts();
+        setBackendError(!cachedProducts.length);
+        setProducts(cachedProducts.map(p => ({ ...p, id: p.productId || p.id })));
       } finally {
         setLoadingProducts(false);
       }
@@ -357,7 +360,7 @@ export default function LandingPage() {
             <div className="text-center py-12 text-stone-400">
               <p className="text-3xl mb-2">🔌</p>
               <p className="text-sm mb-1">Cannot connect to the server</p>
-              <p className="text-xs">Make sure the backend is running on port 5000</p>
+              <p className="text-xs">Make sure the backend is running on port 5001</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
